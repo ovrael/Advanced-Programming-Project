@@ -5,11 +5,11 @@
 ##############################
 
 # Imports
-import myMath
-import myImgProcessing
-import myUser
-import myUtils
-import usersDB
+import Helpers.myMath as myMath
+import Helpers.myImgProcessing as myImgProcessing
+import Helpers.myUser as myUser
+import Helpers.myUtils as myUtils
+import Helpers.usersDB as usersDB
 
 
 import io
