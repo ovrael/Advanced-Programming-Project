@@ -44,8 +44,6 @@ def isPrime(number: int) -> bool:
         bool: If number is prime
     """
 
-    # return primes.check(number)
-
     if number == 2:
         return True
     if number == 3:
