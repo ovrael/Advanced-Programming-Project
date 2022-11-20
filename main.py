@@ -7,9 +7,9 @@
 # Imports
 import Helpers.myMath as myMath
 import Helpers.myImgProcessing as myImgProcessing
-import Helpers.myUser as myUser
+from Helpers.myUser import DbUser
+from Helpers.usersDB import UsersDatabase
 import Helpers.myUtils as myUtils
-import Helpers.usersDB as usersDB
 
 
 import io
@@ -19,7 +19,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi import Depends, FastAPI, HTTPException, status
 
 app = FastAPI()
-users = usersDB.UsersDatabase()
+users = UsersDatabase()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
@@ -69,7 +69,7 @@ async def invert_picture_colors(file: UploadFile = File(...)):
     return response
 
 
-async def get_current_user(token: str = Depends(oauth2_scheme)) -> myUser.DbUser:
+async def get_current_user(token: str = Depends(oauth2_scheme)) -> DbUser:
     """Tries to get current user from database. Raises error if fails.
 
     Args:
@@ -91,7 +91,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> myUser.DbUser
     return user
 
 
-async def get_current_active_user(current_user: myUser.DbUser = Depends(get_current_user)) -> myUser.DbUser:
+async def get_current_active_user(current_user: DbUser = Depends(get_current_user)) -> DbUser:
     """Checks if current user is active. If not raises exception.
 
     Args:
@@ -136,7 +136,7 @@ async def get_token(form_data: OAuth2PasswordRequestForm = Depends()) -> object:
 
 
 @app.get("/user/login")
-async def user_login(current_user: myUser.DbUser = Depends(get_current_active_user)):
+async def user_login(current_user: DbUser = Depends(get_current_active_user)):
     """Return current time after successful authorization
 
     Args:

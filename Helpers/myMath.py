@@ -1,6 +1,3 @@
-from primePy import primes
-
-
 def tryToInt(number: str) -> int:
     """Checks if given number is integer.
 
