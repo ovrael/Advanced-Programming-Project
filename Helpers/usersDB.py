@@ -1,5 +1,5 @@
-from .myUser import *
-from .myUtils import *
+import Helpers.myUser as myUser
+import Helpers.myUtils as myUtils
 
 
 class UsersDatabase:
@@ -9,12 +9,12 @@ class UsersDatabase:
 
     def addDefaultUser(self):
         id = 0 if len(self.users) == 0 else self.users[-1].id + 1
-        dbUser = DbUser(
+        dbUser = myUser.DbUser(
             id,
             "DefaultName",
             "DefaultLastName",
             "DefaultUser",
-            hashText("Pass25")
+            myUtils.hashText("Pass25")
         )
 
         if (dbUser not in self.users):
@@ -23,14 +23,14 @@ class UsersDatabase:
         else:
             return False
 
-    def addUser(self, user: RegisterUser):
+    def addUser(self, user: myUser.RegisterUser):
         id = 0 if len(self.users) == 0 else self.users[-1].id + 1
-        dbUser = DbUser(
+        dbUser = myUser.DbUser(
             id,
             user.name,
             user.last_name,
             user.login,
-            hashText(user.password)
+            myUtils.hashText(user.password)
         )
 
         if (dbUser not in self.users):
@@ -39,7 +39,7 @@ class UsersDatabase:
         else:
             return False
 
-    def removeUser(self, user: DbUser):
+    def removeUser(self, user: myUser.DbUser):
         if (user in self.users):
             self.users.remove(user)
             return True
