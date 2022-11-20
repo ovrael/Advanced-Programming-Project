@@ -1,8 +1,6 @@
 from .myUser import *
 from .myUtils import *
 
-import myUser
-
 
 class UsersDatabase:
     def __init__(self):
