@@ -1,5 +1,7 @@
+from .myUser import *
+from .myUtils import *
+
 import myUser
-import myUtils
 
 
 class UsersDatabase:
@@ -9,12 +11,12 @@ class UsersDatabase:
 
     def addDefaultUser(self):
         id = 0 if len(self.users) == 0 else self.users[-1].id + 1
-        dbUser = myUser.DbUser(
+        dbUser = DbUser(
             id,
             "DefaultName",
             "DefaultLastName",
             "DefaultUser",
-            myUtils.hashText("Pass25")
+            hashText("Pass25")
         )
 
         if (dbUser not in self.users):
@@ -23,14 +25,14 @@ class UsersDatabase:
         else:
             return False
 
-    def addUser(self, user: myUser.RegisterUser):
+    def addUser(self, user: RegisterUser):
         id = 0 if len(self.users) == 0 else self.users[-1].id + 1
-        dbUser = myUser.DbUser(
+        dbUser = DbUser(
             id,
             user.name,
             user.last_name,
             user.login,
-            myUtils.hashText(user.password)
+            hashText(user.password)
         )
 
         if (dbUser not in self.users):
@@ -39,7 +41,7 @@ class UsersDatabase:
         else:
             return False
 
-    def removeUser(self, user: myUser.DbUser):
+    def removeUser(self, user: DbUser):
         if (user in self.users):
             self.users.remove(user)
             return True
