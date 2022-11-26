@@ -48,6 +48,26 @@ async def prime(number: int):
     return f"Provided number: {number} is {primeText}."
 
 
+@app.post("/picture/invert2")
+async def invert_picture_colors2(file: bytes = File(...)):
+    """Inverts colors of given image
+
+    Args:
+        file (UploadFile, optional): _description_. Defaults to File(...).
+
+    Returns:
+        StreamingResponse: Response with inverted image ready to download
+    """
+    image = myImgProcessing.invertColors(file)
+    newFileName = myImgProcessing.getInvertedFileName("Test.png")
+
+    response = StreamingResponse(io.BytesIO(
+        image), media_type='application/octet-stream')
+    response.headers["Content-Disposition"] = f"attachment; filename={newFileName}"
+
+    return response
+
+
 @app.post("/picture/invert")
 async def invert_picture_colors(file: UploadFile = File(...)):
     """Inverts colors of given image
