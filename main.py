@@ -8,8 +8,8 @@
 import Helpers.myMath as myMath
 import Helpers.myImgProcessing as myImgProcessing
 import Helpers.myUser as myUser
+import Helpers.usersDB
 import Helpers.myUtils as myUtils
-import Helpers.usersDB as usersDB
 
 
 import io
@@ -19,7 +19,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi import Depends, FastAPI, HTTPException, status
 
 app = FastAPI()
-users = usersDB.UsersDatabase()
+users = Helpers.usersDB.UsersDatabase()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
@@ -46,6 +46,26 @@ async def prime(number: int):
     isPrime = myMath.isPrime(number)
     primeText = "prime" if isPrime else "not prime"
     return f"Provided number: {number} is {primeText}."
+
+
+@app.post("/picture/invert2")
+async def invert_picture_colors2(file: bytes = File(...)):
+    """Inverts colors of given image
+
+    Args:
+        file (UploadFile, optional): _description_. Defaults to File(...).
+
+    Returns:
+        StreamingResponse: Response with inverted image ready to download
+    """
+    image = myImgProcessing.invertColors(file)
+    newFileName = myImgProcessing.getInvertedFileName("Test.png")
+
+    response = StreamingResponse(io.BytesIO(
+        image), media_type='application/octet-stream')
+    response.headers["Content-Disposition"] = f"attachment; filename={newFileName}"
+
+    return response
 
 
 @app.post("/picture/invert")

@@ -2,7 +2,7 @@ import datetime
 import hashlib
 
 
-def getCurrentTime():
+def getCurrentTime() -> str:
     """Get current time in format HH:MM:SS
 
     Returns:
@@ -12,7 +12,15 @@ def getCurrentTime():
     return f"{now.hour}:{now.minute}:{now.second}"
 
 
-def hashText(text: str):
+def hashText(text: str) -> str:
+    """Hashes text using sha256 algorithm from hashlib package
+
+    Args:
+        text (str): Text
+
+    Returns:
+        str: Hashed text in hexdigest
+    """
     hasher = hashlib.sha256(text.encode())
     hex_dig = hasher.hexdigest()
     return hex_dig

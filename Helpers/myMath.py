@@ -1,6 +1,3 @@
-from primePy import primes
-
-
 def tryToInt(number: str) -> int:
     """Checks if given number is integer.
 
@@ -43,8 +40,6 @@ def isPrime(number: int) -> bool:
     Returns:
         bool: If number is prime
     """
-
-    # return primes.check(number)
 
     if number == 2:
         return True
