@@ -1,5 +1,5 @@
-import Helpers.myUser as myUser
-import Helpers.myUtils as myUtils
+import app.Helpers.myUser as myUser
+import app.Helpers.myUtils as myUtils
 
 
 class UsersDatabase:

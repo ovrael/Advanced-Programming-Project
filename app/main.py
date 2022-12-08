@@ -5,11 +5,11 @@
 ##############################
 
 # Imports
-import Helpers.myMath as myMath
-import Helpers.myImgProcessing as myImgProcessing
-import Helpers.myUser as myUser
-import Helpers.usersDB
-import Helpers.myUtils as myUtils
+import app.Helpers.myMath as myMath
+import app.Helpers.myImgProcessing as myImgProcessing
+import app.Helpers.myUser as myUser
+import app.Helpers.usersDB as usersDB
+import app.Helpers.myUtils as myUtils
 
 
 import io
@@ -18,8 +18,9 @@ from fastapi.responses import StreamingResponse
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi import Depends, FastAPI, HTTPException, status
 
+#
 app = FastAPI()
-users = Helpers.usersDB.UsersDatabase()
+users = usersDB.UsersDatabase()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
