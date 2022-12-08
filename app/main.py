@@ -5,11 +5,11 @@
 ##############################
 
 # Imports
-import Helpers.myMath as myMath
-import Helpers.myImgProcessing as myImgProcessing
-import Helpers.myUser as myUser
-import Helpers.usersDB
-import Helpers.myUtils as myUtils
+import app.Helpers.myMath as myMath
+import app.Helpers.myImgProcessing as myImgProcessing
+import app.Helpers.myUser as myUser
+import app.Helpers.usersDB as usersDB
+import app.Helpers.myUtils as myUtils
 
 
 import io
@@ -19,7 +19,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi import Depends, FastAPI, HTTPException, status
 
 app = FastAPI()
-users = Helpers.usersDB.UsersDatabase()
+users = usersDB.UsersDatabase()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
@@ -158,6 +158,9 @@ async def get_token(form_data: OAuth2PasswordRequestForm = Depends()) -> object:
 @app.get("/user/login")
 async def user_login(current_user: myUser.DbUser = Depends(get_current_active_user)):
     """Return current time after successful authorization
+    Default user data:
+    Login: DefaultUser
+    Password: Pass25
 
     Args:
         current_user (myUser.DbUser, optional): _description_. Defaults to Depends(get_current_active_user).
